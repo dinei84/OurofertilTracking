@@ -32,9 +32,9 @@ document.getElementById("login-btn").addEventListener("click", async () => {
             console.log("Dados do usuário:", userData);
 
             if (userData.role === "admin") {
-                window.location.href = "dashboard_admin.html";
+                window.location.href = "../pages/dashbord_admin.html";
             } else {
-                window.location.href = "dashboard_secundario.html";
+                window.location.href = "../pages/dashboard_secundario.html";
             }
         } else {
             alert("Usuário não encontrado no Firestore.");
@@ -62,9 +62,10 @@ document.getElementById("register-btn").addEventListener("click", async () => {
         console.log("Usuário cadastrado com sucesso:", user.uid);
 
         await setDoc(doc(db, "users", user.uid), {
-            nome: email.split("@")[0], 
-            email: email, 
-            role: role, 
+            uid: user.uid,
+            nome: email.split("@")[0],
+            email: email,
+            role: role,
             permissoes: role === "admin" ? ["cadastrar_cargas", "editar_transportadoras"] : ["visualizar_retiradas"]
         });
 
