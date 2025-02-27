@@ -3,11 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ourofértil</title>
+    <link rel="stylesheet" href="css/index.css">
+    
 </head>
 <body>
-    <h1>Olá, mundo!</h1>
-    <p>Este é um parágrafo de exemplo.</p>
-    <button>Clique aqui</button>
+    <div class="container">
+        <div class="field-lines"></div>
+        
+        <header>
+            <div class="logo-container">
+                <!-- Logo SVG recriado a partir da imagem original -->
+                <svg class="logo" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="300" cy="150" rx="300" ry="150" fill="#008f39"/>
+                    <path d="M0,150 Q150,200 300,150 T600,150 L600,300 L0,300 Z" fill="#008f39"/>
+                    <path d="M50,200 L120,150 M150,210 L220,150 M250,220 L320,150 M350,230 L420,150 M450,240 L520,150" stroke="white" stroke-width="8"/>
+                    <path d="M70,100 Q90,95 110,100 Q120,105 130,120 Q150,100 170,105 Q190,110 200,130 Q220,105 240,110 Q260,115 270,135 Q290,110 310,115 Q330,120 340,140 Q360,115 380,120 Q400,125 410,145 Q430,120 450,125 Q470,130 480,150" fill="none" stroke="#ffff00" stroke-width="15"/>
+                    <text x="100" y="100" font-family="Arial" font-size="60" font-style="italic" font-weight="bold" fill="#ffff00">Ourofértil</text>
+                </svg>
+            </div>
+        </header>
+
+        <main>
+            <h1>Soluções em Fertilidade Agrícola</h1>
+            <p class="slogan">Potencializando o campo brasileiro com tecnologia e produtos de alta qualidade para maximizar sua produção e rentabilidade.</p>
+            
+            <a href="pages/login.html" class="login-btn">Acessar Sistema</a>
+            
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🌱</div>
+                    <h3 class="feature-title">Produtos Premium</h3>
+                    <p class="feature-text">Fertilizantes e insumos de alta qualidade para garantir o melhor desempenho da sua lavoura.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">🔬</div>
+                    <h3 class="feature-title">Análises Técnicas</h3>
+                    <p class="feature-text">Análises de solo e foliar para recomendações precisas e personalizadas para sua cultura.</p>
+                </div>
+                
+                <div class="feature">
+                    <div class="feature-icon">👨‍🌾</div>
+                    <h3 class="feature-title">Suporte Especializado</h3>
+                    <p class="feature-text">Equipe de agrônomos prontos para oferecer o melhor suporte técnico para sua produção.</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Ourofértil. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Script para adicionar efeito de flutuação ao logo
+        document.addEventListener('DOMContentLoaded', function() {
+            const logo = document.querySelector('.logo-container');
+            logo.style.animation = 'fadeIn 1s ease-in-out, floatAnimation 5s ease-in-out infinite';
+        });
+    </script>
 </body>
 </html>
