@@ -1,18 +1,37 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Controle de Frete</title>
+    <title>Login / Cadastro</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <div class="container">
-        <h2>Login</h2>
-        <input type="email" id="email" placeholder="E-mail">
-        <input type="password" id="password" placeholder="Senha">
-        <button id="login-btn">Entrar</button>
+        <div class="toggle-buttons">
+            <button id="show-login">Login</button>
+            <button id="show-register">Cadastro</button>
+        </div>
+
+        <div id="login-form">
+            <h2>Login</h2>
+            <input type="email" id="login-email" placeholder="E-mail">
+            <input type="password" id="login-password" placeholder="Senha">
+            <button id="login-btn">Entrar</button>
+        </div>
+
+        <div id="register-form" style="display: none;">
+            <h2>Cadastro</h2>
+            <input type="email" id="register-email" placeholder="E-mail">
+            <input type="password" id="register-password" placeholder="Senha">
+            <select id="register-role">
+                <option value="secondary">Usuário Secundário</option>
+                <option value="admin">Administrador</option>
+            </select>
+            <button id="register-btn">Cadastrar</button>
+        </div>
     </div>
-    <script type="module" src="../js/auth.js"></script>
+
+    <script type="module" src="../js/login.js"></script>
 </body>
 </html>
