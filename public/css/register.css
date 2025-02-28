@@ -17,16 +17,18 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    width: 100%;
-    background-color: var(--cinza-claro);
-    background-image: linear-gradient(to bottom, rgba(0, 143, 57, 0.95), rgba(0, 143, 57, 0.8)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500"><path d="M0,100 C150,200 350,0 500,100 L500,500 L0,500 Z" fill="white" opacity="0.1"/></svg>');
-    background-size: cover;
-    background-position: center;
+    background-color: var(--verde-principal);
+    background-image: linear-gradient(to bottom, rgba(0, 143, 57, 0.95), rgba(0, 143, 57, 0.8));
     position: relative;
 }
 
@@ -35,8 +37,8 @@ body::before {
     content: '';
     position: absolute;
     bottom: 0;
-    left: -5%;
-    width: 110%;
+    left: 0;
+    width: 100%;
     height: 40%;
     background-image: linear-gradient(to right, transparent 45%, var(--branco) 45%, var(--branco) 46%, transparent 46%),
         linear-gradient(to right, transparent 30%, var(--branco) 30%, var(--branco) 31%, transparent 31%),
@@ -47,6 +49,7 @@ body::before {
     transform: perspective(500px) rotateX(60deg);
     opacity: 0.3;
     z-index: 0;
+    pointer-events: none;
 }
 
 .container {
@@ -61,7 +64,6 @@ body::before {
     z-index: 2;
     animation: fadeIn 0.5s ease-in-out;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px);
 }
 
 .logo {
@@ -69,38 +71,8 @@ body::before {
     margin-bottom: 20px;
 }
 
-.toggle-buttons {
-    display: flex;
-    margin-bottom: 25px;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--verde-principal);
-}
-
-.toggle-buttons button {
-    flex: 1;
-    background-color: var(--branco);
-    color: var(--verde-principal);
-    border: none;
-    padding: 12px;
-    margin: 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-weight: bold;
-}
-
-.toggle-buttons button.active {
-    background-color: var(--verde-principal);
-    color: var(--branco);
-}
-
-.toggle-buttons button:hover:not(.active) {
-    background-color: var(--verde-claro);
-}
-
 #login-form, #register-form {
     padding: 10px 0;
-    transition: opacity 0.3s ease;
 }
 
 h2 {
@@ -143,7 +115,7 @@ button#login-btn, button#register-btn {
     color: var(--preto);
     border: none;
     padding: 14px;
-    margin: 15px 0 5px;
+    margin: 15px 0 10px;
     cursor: pointer;
     border-radius: 8px;
     font-size: 1rem;
@@ -157,44 +129,30 @@ button#login-btn, button#register-btn {
     border: 2px solid var(--dourado);
 }
 
-button#login-btn::before, button#register-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background-color: var(--preto);
-    transition: all 0.4s ease;
-    z-index: -1;
-}
-
 button#login-btn:hover, button#register-btn:hover {
-    color: var(--dourado);
+    color: var(--branco);
+    background-color: var(--verde-principal);
+    border-color: var(--verde-principal);
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-button#login-btn:hover::before, button#register-btn:hover::before {
-    left: 0;
-}
-
-.back-to-home {
-    margin-top: 20px;
-    color: var(--branco);
-    text-decoration: none;
+p {
+    margin-top: 15px;
+    color: #666;
     font-size: 0.9rem;
-    display: inline-block;
-    transition: all 0.3s ease;
-    position: relative;
-    padding: 5px 10px;
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.2);
 }
 
-.back-to-home:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-    transform: translateY(-2px);
+a {
+    color: var(--verde-principal);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--dourado);
+    text-decoration: underline;
 }
 
 /* Animações */
@@ -203,15 +161,15 @@ button#login-btn:hover::before, button#register-btn:hover::before {
     to { opacity: 1; transform: translateY(0); }
 }
 
+.error-shake {
+    animation: shake 0.3s ease-in-out;
+    border-color: #ff3860 !important;
+}
+
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
     75% { transform: translateX(5px); }
-}
-
-.error-shake {
-    animation: shake 0.3s ease-in-out;
-    border-color: #ff3860 !important;
 }
 
 /* Media queries para responsividade */

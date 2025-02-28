@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Transportadoras</title>
+    <link rel="stylesheet" href="../css/cadastros.css">
+</head>
+<body>
+    
+    <header>
+        <h1>Cadastro de Transportadoras</h1>
+    </header>
+
+    <form id="formTransportadora">
+        <label for="cnpj">CNPJ</label>
+        <input type="text" name="cnpj" id="cnpj" required>
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" id="nome" required>        
+        <label for="contato">Contato</label>
+        <input type="text" name="contato" id="contato" required>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <div>
+        <a href="dashbord_admin.html"><button type="button">Voltar</button></a>
+    </div>
+
+    <script type="module" src="../js/cadastro_transportadoras.js"></script>
+    
+</body>
+</html>

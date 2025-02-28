@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Ourofértil</title>
+    <title>Cadastro - Ourofértil</title>
     <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
@@ -17,15 +17,18 @@
             <text x="100" y="100" font-family="Arial" font-size="60" font-style="italic" font-weight="bold" fill="#ffff00">Ourofértil</text>
         </svg>
         
-        <div id="login-form">
-            <h2>Login</h2>
-            <input type="email" id="login-email" placeholder="E-mail" autocomplete="email">
-            <input type="password" id="login-password" placeholder="Senha" autocomplete="current-password">
-            <button id="login-btn">Entrar</button>
-            <p>Não tem uma conta? <a href="register.html">Cadastre-se</a></p>
+        <div id="register-form">
+            <h2>Cadastro</h2>
+            <input type="email" id="register-email" placeholder="E-mail" autocomplete="email">
+            <input type="password" id="register-password" placeholder="Senha" autocomplete="new-password">
+            <select id="register-role">
+                <option value="secondary">Usuário Secundário</option>
+                <option value="admin">Administrador</option>
+            </select>
+            <button id="register-btn">Cadastrar</button>
         </div>
     </div>
 
-    <script type="module" src="../js/login.js"></script>
+    <script type="module" src="../js/register.js"></script>
 </body>
 </html>
