@@ -19,6 +19,7 @@ document.getElementById("register-btn").addEventListener("click", async () => {
 
         console.log("Usuário cadastrado com sucesso:", user.uid);
 
+        // Salva o usuário com a role selecionada
         await setDoc(doc(db, "users", user.uid), {
             uid: user.uid,
             nome: email.split("@")[0],

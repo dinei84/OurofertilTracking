@@ -1,16 +1,28 @@
-// Import Firebase configuration
-import { db, collection, addDoc } from '../js/firebase-config.js';
+// cadastro_transportadoras.js
+import { db, auth, collection, addDoc } from '../js/firebase-config.js';
 
-const auth = getAuth();
+// Precisamos importar doc e getDoc para ler o documento do usuário
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+
 auth.onAuthStateChanged(async (user) => {
     if (user) {
-        const token = await user.getIdTokenResult();
-        console.log("Usuário autenticado:", user.email);
-        console.log("Claims do usuário:", token.claims);
+        // Em vez de checar user.getIdTokenResult(), vamos ler o doc do user
+        const userDocRef = doc(db, "users", user.uid);
+        const userDocSnap = await getDoc(userDocRef);
 
-        if (token.claims.role !== "admin") {
-            console.error("⚠️ Usuário não tem permissão de admin!");
-            alert("Você não tem permissão para cadastrar transportadoras.");
+        if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            console.log("Usuário autenticado:", user.email);
+            console.log("Dados do usuário:", userData);
+
+            if (userData.role !== "admin") {
+                console.error("⚠️ Usuário não tem permissão de admin!");
+                alert("Você não tem permissão para cadastrar transportadoras.");
+            } else {
+                console.log("Usuário é admin, pode cadastrar transportadoras.");
+            }
+        } else {
+            console.error("Documento do usuário não foi encontrado no Firestore!");
         }
     } else {
         console.error("⚠️ Nenhum usuário autenticado!");
@@ -18,16 +30,14 @@ auth.onAuthStateChanged(async (user) => {
     }
 });
 
-// Função para cadastrar uma transportadora no Firestore
+// Função para cadastrar transportadora no Firestore
 async function cadastrarTransportadora(dadosTransportadora) {
     try {
         const transportadorasRef = collection(db, 'transportadoras');
-
-        // Adiciona o documento ao Firestore
         const docRef = await addDoc(transportadorasRef, {
             nome: dadosTransportadora.nome,
             cnpj: dadosTransportadora.cnpj,
-            contato: dadosTransportadora.contato,            
+            contato: dadosTransportadora.contato,
             dataCadastro: new Date(),
             status: 'ativo'
         });
@@ -40,7 +50,6 @@ async function cadastrarTransportadora(dadosTransportadora) {
     }
 }
 
-// Verifica se o formulário existe antes de adicionar o event listener
 document.addEventListener("DOMContentLoaded", () => {
     const formElement = document.getElementById('formTransportadora');
 
@@ -61,20 +70,17 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Verifica se os campos não estão vazios
         if (!nomeInput.value.trim() || !cnpjInput.value.trim() || !contatoInput.value.trim()) {
             alert("Por favor, preencha todos os campos.");
             return;
         }
 
-        const dadosTransportadora = {
-            nome: nomeInput.value.trim(),
-            cnpj: cnpjInput.value.trim(),
-            contato: contatoInput.value.trim()
-        };
-
         try {
-            await cadastrarTransportadora(dadosTransportadora);
+            await cadastrarTransportadora({
+                nome: nomeInput.value.trim(),
+                cnpj: cnpjInput.value.trim(),
+                contato: contatoInput.value.trim()
+            });
             alert('Transportadora cadastrada com sucesso!');
             e.target.reset();
         } catch (error) {
