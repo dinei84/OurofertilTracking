@@ -3,56 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Ourofértil</title>
+    <title>Ourofértil - Soluções em Fertilidade Agrícola</title>
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        /* Estilos específicos da landing page */
+        .hero {
+            background: linear-gradient(rgba(0, 143, 57, 0.9), rgba(0, 143, 57, 0.8)), 
+                        url('img/agriculture-background.jpg');
+            background-size: cover;
+            background-position: center;
+            color: var(--branco);
+            padding: var(--spacing-xl) 0;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            color: var(--branco);
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .hero p {
+            font-size: var(--font-size-lg);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--dourado);
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .testimonial {
+            font-style: italic;
+            position: relative;
+            padding: var(--spacing-lg);
+        }
+        
+        .testimonial:before {
+            content: '"';
+            font-size: 4rem;
+            position: absolute;
+            left: 0;
+            top: -20px;
+            color: var(--dourado);
+            opacity: 0.3;
+        }
+        
+        .section {
+            padding: var(--spacing-xl) 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .section-title h2 {
+            display: inline-block;
+            border-bottom: 3px solid var(--dourado);
+            padding-bottom: var(--spacing-xs);
+        }
+        
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            text-align: center;
+        }
+        
+        .stat-item {
+            margin: var(--spacing-md);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--dourado);
+        }
+        
+        .contact-info {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .contact-icon {
+            margin-right: var(--spacing-sm);
+            color: var(--verde-principal);
+        }
+        
+        @media (max-width: 767px) {
+            .cta-buttons {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="page-wrapper">
         <header class="navbar">
             <div class="container navbar-container">
                 <div class="logo-container">
-                    <img src="../assets/logo.png" alt="Ourofértil" class="navbar-logo">
+                    <img src="../assets/logo.png" alt="">
                 </div>
                 <button class="navbar-toggle">☰</button>
                 <nav class="navbar-menu">
-                    <a href="../index.html">Início</a>
-                    <a href="register.html">Cadastro</a>
+                    <a href="#sobre">Sobre</a>
+                    <a href="#beneficios">Benefícios</a>
+                    <a href="#depoimentos">Depoimentos</a>
+                    <a href="#contato">Contato</a>
+                    <a href="login.html" class="btn">Acessar Sistema</a>
                 </nav>
             </div>
         </header>
 
-        <main class="content-area">
+        <section class="hero">
             <div class="container">
+                <div class="hero-content text-center">
+                    <h1>Soluções Inteligentes em Fertilidade Agrícola</h1>
+                    <p>Maximize sua produtividade com nossa plataforma completa de gestão agrícola</p>
+                    <div class="cta-buttons">
+                        <a href="pages/login.html" class="btn">Acessar Sistema</a>
+                        <a href="pages/register.html" class="btn btn-secondary">Criar Conta</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="sobre" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Sobre a Ourofértil</h2>
+                </div>
                 <div class="row">
                     <div class="col-half">
-                        <div class="card">
-                            <div class="card-header">
-                                <h1>Login</h1>
+                        <p>A Ourofértil é uma plataforma inovadora que conecta produtores rurais, representantes e fornecedores de insumos agrícolas, otimizando o processo de análise de solo e recomendação de fertilizantes.</p>
+                        <p>Nossa missão é aumentar a produtividade do campo brasileiro através de tecnologia de ponta e conhecimento técnico especializado.</p>
+                    </div>
+                    <div class="col-half">
+                        <div class="stats-container">
+                            <div class="stat-item">
+                                <div class="stat-number">+500</div>
+                                <div>Produtores Atendidos</div>
                             </div>
-                            <div class="card-body">
-                                <form id="loginForm">
-                                    <div class="form-group">
-                                        <label for="email">Email:</label>
-                                        <input type="email" id="email" name="email" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Senha:</label>
-                                        <input type="password" id="password" name="password" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-block">Entrar</button>
-                                </form>
+                            <div class="stat-item">
+                                <div class="stat-number">+10k</div>
+                                <div>Hectares Analisados</div>
                             </div>
-                            <div class="card-footer text-center">
-                                <p>Não tem uma conta? <a href="register.html" class="text-primary">Cadastre-se</a></p>
+                            <div class="stat-item">
+                                <div class="stat-number">+30%</div>
+                                <div>Aumento de Produtividade</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
+        </section>
+
+        <section id="beneficios" class="section" style="background-color: #f9f9f9;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Benefícios da Nossa Plataforma</h2>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card text-center">
+                            <div class="feature-icon">🌱</div>
+                            <h3>Análise Precisa</h3>
+                            <p>Interpretação detalhada de análises de solo com recomendações personalizadas.</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card text-center">
+                            <div class="feature-icon">📊</div>
+                            <h3>Gestão Completa</h3>
+                            <p>Acompanhamento de todas as etapas do processo produtivo em um só lugar.</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card text-center">
+                            <div class="feature-icon">💰</div>
+                            <h3>Economia</h3>
+                            <p>Redução de custos com uso otimizado de insumos e aumento de produtividade.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="depoimentos" class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>O Que Nossos Clientes Dizem</h2>
+                </div>
+                <div class="row">
+                    <div class="col-half">
+                        <div class="card">
+                            <div class="testimonial">
+                                Desde que comecei a utilizar a plataforma Ourofértil, consegui aumentar minha produtividade em 35% e reduzir custos com fertilizantes. O sistema é intuitivo e as recomendações são precisas.
+                            </div>
+                            <div class="card-footer">
+                                <strong>João Silva</strong> - Produtor de Soja, MT
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-half">
+                        <div class="card">
+                            <div class="testimonial">
+                                Como representante técnico, a plataforma Ourofértil revolucionou meu trabalho. Consigo atender mais clientes com maior qualidade e precisão nas recomendações.
+                            </div>
+                            <div class="card-footer">
+                                <strong>Maria Oliveira</strong> - Engenheira Agrônoma, GO
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" class="section" style="background-color: #f9f9f9;">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Entre em Contato</h2>
+                </div>
+                <div class="row">
+                    <div class="col-half">
+                        <div class="contact-info">
+                            <div class="contact-method">
+                                <span class="contact-icon">📞</span>
+                                <span>(11) 9999-8888</span>
+                            </div>
+                            <div class="contact-method">
+                                <span class="contact-icon">✉️</span>
+                                <span>contato@ourofertil.com.br</span>
+                            </div>
+                            <div class="contact-method">
+                                <span class="contact-icon">📍</span>
+                                <span>Av. Agricultura, 1500 - Centro, Cidade Agrícola - BR</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-half">
+                        <div class="card">
+                            <form>
+                                <div class="form-group">
+                                    <label for="nome">Nome</label>
+                                    <input type="text" id="nome" name="nome" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mensagem">Mensagem</label>
+                                    <textarea id="mensagem" name="mensagem" rows="4" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-block">Enviar Mensagem</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <footer class="footer">
             <div class="container">
+                <div class="footer-content">
+                    <div>
+                        <h3>Ourofértil</h3>
+                        <p>Soluções inteligentes para o agronegócio</p>
+                    </div>
+                    <div>
+                        <h3>Links Rápidos</h3>
+                        <ul>
+                            <li><a href="#sobre">Sobre</a></li>
+                            <li><a href="#beneficios">Benefícios</a></li>
+                            <li><a href="#depoimentos">Depoimentos</a></li>
+                            <li><a href="#contato">Contato</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>Acesso</h3>
+                        <ul>
+                            <li><a href="pages/login.html">Login</a></li>
+                            <li><a href="pages/register.html">Cadastro</a></li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="footer-copyright">
                     <p>&copy; 2025 Ourofértil. Todos os direitos reservados.</p>
                 </div>
@@ -64,6 +321,20 @@
         // Script para toggle do menu mobile
         document.querySelector('.navbar-toggle').addEventListener('click', function() {
             document.querySelector('.navbar-menu').classList.toggle('active');
+        });
+        
+        // Script para rolagem suave ao clicar nos links do menu
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                
+                // Fechar menu mobile após clicar
+                document.querySelector('.navbar-menu').classList.remove('active');
+            });
         });
     </script>
 </body>
