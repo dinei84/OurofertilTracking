@@ -1,5 +1,15 @@
+// firebase-config.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  getDoc,
+  deleteDoc,
+  setDoc,
+  getDocs,
+  doc 
+} from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
 
 const firebaseConfig = {
@@ -12,7 +22,10 @@ const firebaseConfig = {
   measurementId: "G-QHN2TXVWPQ"
 };
 
+// Inicializando o Firebase
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
-export { collection, addDoc };
+
+// Exportando funções do Firestore
+export { collection, addDoc, getDoc, doc, deleteDoc, getDocs, setDoc };

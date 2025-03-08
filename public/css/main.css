@@ -1,0 +1,9 @@
+@import 'variables.css';
+@import 'reset.css';
+@import 'layout.css';
+@import 'typography.css';
+@import 'forms.css';
+@import 'navigation.css';
+@import 'components.css';
+
+/* Estilos específicos da página podem ser adicionados aqui */

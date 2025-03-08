@@ -3,49 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ourofértil</title>
-    <link rel="stylesheet" href="css/index.css">
-    
+    <title>Login - Ourofértil</title>
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    <div class="container">
-        <div class="field-lines"></div>
-        
-        <header>
-            <div class="logo-container">
-                <!-- Logo SVG recriado a partir da imagem original -->
-                <svg class="logo" viewBox="0 0 600 300" xmlns="http://www.w3.org/2000/svg">
-                    <ellipse cx="300" cy="150" rx="300" ry="150" fill="#008f39"/>
-                    <path d="M0,150 Q150,200 300,150 T600,150 L600,300 L0,300 Z" fill="#008f39"/>
-                    <path d="M50,200 L120,150 M150,210 L220,150 M250,220 L320,150 M350,230 L420,150 M450,240 L520,150" stroke="white" stroke-width="8"/>
-                    <path d="M70,100 Q90,95 110,100 Q120,105 130,120 Q150,100 170,105 Q190,110 200,130 Q220,105 240,110 Q260,115 270,135 Q290,110 310,115 Q330,120 340,140 Q360,115 380,120 Q400,125 410,145 Q430,120 450,125 Q470,130 480,150" fill="none" stroke="#ffff00" stroke-width="15"/>
-                    <text x="100" y="100" font-family="Arial" font-size="60" font-style="italic" font-weight="bold" fill="#ffff00">Ourofértil</text>
-                </svg>
+    <div class="page-wrapper">
+        <header class="navbar">
+            <div class="container navbar-container">
+                <div class="logo-container">
+                    <img src="../assets/logo.png" alt="Ourofértil" class="navbar-logo">
+                </div>
+                <button class="navbar-toggle">☰</button>
+                <nav class="navbar-menu">
+                    <a href="../index.html">Início</a>
+                    <a href="register.html">Cadastro</a>
+                </nav>
             </div>
         </header>
 
-        <main>
-            <a href="pages/login.html" class="login-btn">Acessar Sistema</a>
-            <a href="pages/register.html" class="login-btn">Cadastro</a>
-
-            <h1>Soluções em Fertilidade Agrícola</h1>
-            
-            
-            
-            
-           
+        <main class="content-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-half">
+                        <div class="card">
+                            <div class="card-header">
+                                <h1>Login</h1>
+                            </div>
+                            <div class="card-body">
+                                <form id="loginForm">
+                                    <div class="form-group">
+                                        <label for="email">Email:</label>
+                                        <input type="email" id="email" name="email" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">Senha:</label>
+                                        <input type="password" id="password" name="password" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-block">Entrar</button>
+                                </form>
+                            </div>
+                            <div class="card-footer text-center">
+                                <p>Não tem uma conta? <a href="register.html" class="text-primary">Cadastre-se</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
 
-        <footer>
-            <p>&copy; 2025 Ourofértil. Todos os direitos reservados.</p>
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Ourofértil. Todos os direitos reservados.</p>
+                </div>
+            </div>
         </footer>
     </div>
 
     <script>
-        // Script para adicionar efeito de flutuação ao logo
-        document.addEventListener('DOMContentLoaded', function() {
-            const logo = document.querySelector('.logo-container');
-            logo.style.animation = 'fadeIn 1s ease-in-out, floatAnimation 5s ease-in-out infinite';
+        // Script para toggle do menu mobile
+        document.querySelector('.navbar-toggle').addEventListener('click', function() {
+            document.querySelector('.navbar-menu').classList.toggle('active');
         });
     </script>
 </body>

@@ -1,12 +1,9 @@
 // cadastro_transportadoras.js
-import { db, auth, collection, addDoc } from '../js/firebase-config.js';
+import { db, doc, getDoc, setDoc, auth, collection, addDoc } from '../js/firebase-config.js';
 
-// Precisamos importar doc e getDoc para ler o documento do usuário
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-firestore.js";
-
+// Verifica se o usuário está autenticado e tem permissão de admin
 auth.onAuthStateChanged(async (user) => {
     if (user) {
-        // Em vez de checar user.getIdTokenResult(), vamos ler o doc do user
         const userDocRef = doc(db, "users", user.uid);
         const userDocSnap = await getDoc(userDocRef);
 
@@ -30,61 +27,77 @@ auth.onAuthStateChanged(async (user) => {
     }
 });
 
-// Função para cadastrar transportadora no Firestore
-async function cadastrarTransportadora(dadosTransportadora) {
-    try {
-        const transportadorasRef = collection(db, 'transportadoras');
-        const docRef = await addDoc(transportadorasRef, {
-            nome: dadosTransportadora.nome,
-            cnpj: dadosTransportadora.cnpj,
-            contato: dadosTransportadora.contato,
-            dataCadastro: new Date(),
-            status: 'ativo'
-        });
+document.addEventListener("DOMContentLoaded", async () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const transportadoraId = urlParams.get('id');
 
-        console.log('Transportadora cadastrada com sucesso! ID:', docRef.id);
-        return docRef.id;
-    } catch (error) {
-        console.error('Erro ao cadastrar transportadora:', error.message);
-        throw error;
-    }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
     const formElement = document.getElementById('formTransportadora');
+    const salvarButton = formElement.querySelector('button[type="button"]'); // Botão "Salvar"
 
     if (!formElement) {
         console.error("Erro: Formulário 'formTransportadora' não encontrado.");
         return;
     }
 
-    formElement.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    // Carregar dados da transportadora se estiver no modo edição
+    if (transportadoraId) {
+        const transportadoraRef = doc(db, 'transportadoras', transportadoraId);
+        const transportadoraSnap = await getDoc(transportadoraRef);
 
-        const nomeInput = document.getElementById('nome');
-        const cnpjInput = document.getElementById('cnpj');
-        const contatoInput = document.getElementById('contato');
-
-        if (!nomeInput || !cnpjInput || !contatoInput) {
-            console.error("Erro: Campos obrigatórios não encontrados.");
-            return;
+        if (transportadoraSnap.exists()) {
+            const transportadora = transportadoraSnap.data();
+            document.getElementById('nome').value = transportadora.nome;
+            document.getElementById('cnpj').value = transportadora.cnpj;
+            document.getElementById('contato').value = transportadora.contato;
         }
+    }
 
-        if (!nomeInput.value.trim() || !cnpjInput.value.trim() || !contatoInput.value.trim()) {
+    // Função para salvar ou atualizar a transportadora
+    const salvarTransportadora = async () => {
+        const nome = document.getElementById('nome').value.trim();
+        const cnpj = document.getElementById('cnpj').value.trim();
+        const contato = document.getElementById('contato').value.trim();
+
+        if (!nome || !cnpj || !contato) {
             alert("Por favor, preencha todos os campos.");
             return;
         }
 
         try {
-            await cadastrarTransportadora({
-                nome: nomeInput.value.trim(),
-                cnpj: cnpjInput.value.trim(),
-                contato: contatoInput.value.trim()
-            });
-            alert('Transportadora cadastrada com sucesso!');
-            e.target.reset();
+            if (transportadoraId) {
+                // Modo edição: Atualizar a transportadora
+                await setDoc(doc(db, 'transportadoras', transportadoraId), {
+                    nome,
+                    cnpj,
+                    contato,
+                    dataCadastro: new Date(),
+                    status: 'ativo'
+                });
+                alert("Transportadora atualizada com sucesso!");
+            } else {
+                // Modo cadastro: Adicionar nova transportadora
+                await addDoc(collection(db, 'transportadoras'), {
+                    nome,
+                    cnpj,
+                    contato,
+                    dataCadastro: new Date(),
+                    status: 'ativo'
+                });
+                alert("Transportadora cadastrada com sucesso!");
+            }
+            window.location.href = "dashbord_transportadoras.html"; // Redireciona após salvar
         } catch (error) {
-            alert('Erro ao cadastrar transportadora. Verifique o console.');
+            console.error("Erro ao salvar transportadora:", error);
+            alert("Erro ao salvar transportadora. Verifique o console.");
         }
+    };
+
+    // Evento de clique no botão "Salvar"
+    salvarButton.addEventListener('click', salvarTransportadora);
+
+    // Evento de submit no formulário (para o botão "Cadastrar")
+    formElement.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await salvarTransportadora();
     });
 });

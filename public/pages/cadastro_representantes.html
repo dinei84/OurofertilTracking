@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Representantes - Ourofértil</title>
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="navbar">
+            <div class="container navbar-container">
+                <div class="logo-container">
+                    <img src="../img/logo.svg" alt="Ourofértil" class="navbar-logo">
+                </div>
+                <button class="navbar-toggle">☰</button>
+                <nav class="navbar-menu">
+                    <a href="dashbord_admin.html">Home</a>
+                    <a href="cadastro_representantes.html">Cadastro de representantes</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="content-area">
+            <div class="container">
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item"><a href="dashbord_admin.html">Home</a></span>
+                    <span class="breadcrumb-item">Cadastro de Representantes</span>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h1>Cadastro de Representantes</h1>
+                    </div>
+                    <div class="card-body">
+                        <form id="formRepresentante">
+                            <div class="form-group">
+                                <label for="nome">Nome:</label>
+                                <input type="text" id="nome" name="nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contato">Contato:</label>
+                                <input type="text" id="contato" name="contato" required>
+                            </div>
+                            <div class="form-group form-inline">
+                                <button type="submit" class="btn">Cadastrar</button>
+                                <button type="button" id="save" class="btn btn-secondary">Salvar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Ourofértil. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Script para toggle do menu mobile
+        document.querySelector('.navbar-toggle').addEventListener('click', function() {
+            document.querySelector('.navbar-menu').classList.toggle('active');
+        });
+    </script>
+    <script type="module" src="../js/cadastro_representantes.js"></script>
+</body>
+</html>
