@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 alert("Representante cadastrado com sucesso!");
                 formElement.reset(); // Limpar o formulário
             }
-            window.location.href = "../pages/dashbord_representantes.html"; // Redirecionar para a lista de representantes
+            window.location.href = "../pages/dashboard_representantes.html"; // Redirecionar para a lista de representantes
         } catch (error) {
             console.error("Erro ao salvar representante:", error);
             alert("Erro ao salvar representante. Tente novamente mais tarde.");

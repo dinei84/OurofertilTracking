@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 });
                 alert("Transportadora cadastrada com sucesso!");
             }
-            window.location.href = "dashbord_transportadoras.html"; // Redireciona após salvar
+            window.location.href = "../pages/dashboard_transportadoras.html"; // Redireciona após salvar
         } catch (error) {
             console.error("Erro ao salvar transportadora:", error);
             alert("Erro ao salvar transportadora. Verifique o console.");

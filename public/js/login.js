@@ -26,11 +26,11 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
             // Redireciona com base no role
             if (userData.role === "admin") {
-                window.location.href = "../pages/dashbord_admin.html";
+                window.location.href = "pages/dashboard_admin.html";
             } else if (userData.role === "primary") {
-                window.location.href = "../pages/dashboard_primario.html"; 
+                window.location.href = "pages/dashboard_primario.html"; 
             } else if (userData.role === "secondary") {
-                window.location.href = "../pages/dashboard_secundario.html";
+                window.location.href = "pages/dashboard_secundario.html";
             } else {
                 alert("Função de usuário não reconhecida.");
             }

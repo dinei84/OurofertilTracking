@@ -1,0 +1,71 @@
+/* Estilos específicos para o dashboard de transportadoras */
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.search-container label {
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.search-container input {
+    flex: 1;
+}
+
+.transportadora-card {
+    margin-bottom: var(--spacing-md);
+    transition: transform 0.2s;
+}
+
+.transportadora-card:hover {
+    transform: translateY(-3px);
+}
+
+.transportadora-info {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.transportadora-details {
+    flex: 2;
+    min-width: 250px;
+}
+
+.transportadora-stats {
+    flex: 1;
+    min-width: 150px;
+    text-align: right;
+}
+
+.transportadora-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+}
+
+.stats-label {
+    font-size: var(--font-size-sm);
+    color: #666;
+}
+
+.stats-value {
+    font-weight: bold;
+    color: var(--verde-principal);
+}
+
+.empty-state {
+    text-align: center;
+    padding: var(--spacing-xl);
+    color: #666;
+}
+
+.empty-state-icon {
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+    color: #ddd;
+}

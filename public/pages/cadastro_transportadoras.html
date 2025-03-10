@@ -3,32 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Transportadoras</title>
-    <link rel="stylesheet" href="../css/cadastros.css">
+    <title>Cadastro de Transportadoras - Ourofértil</title>
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 <body>
-    
-    <header>
-        <h1>Cadastro de Transportadoras</h1>
-    </header>
+    <div class="page-wrapper">
+        <header class="navbar">
+            <div class="container navbar-container">
+                <div class="logo-container">
+                    <img src="../../assets/logo.png" alt="">
+                </div>
+                <button class="navbar-toggle">☰</button>
+                <nav class="navbar-menu">
+                    <a href="dashboard_admin.html">Home</a>
+                    <a href="dashboard_transportadoras.html">Transportadoras</a>                    
+                </nav>
+            </div>
+        </header>
 
-    <form id="formTransportadora">
-        <label for="cnpj">CNPJ</label>
-        <input type="text" name="cnpj" id="cnpj" required>
-        <label for="nome">Nome</label>
-        <input type="text" name="nome" id="nome" required>        
-        <label for="contato">Contato</label>
-        <input type="text" name="contato" id="contato" required>
+        <main class="content-area">
+            <div class="container">
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item"><a href="dashbord_admin.html">Dashboard</a></span>
+                    <span class="breadcrumb-item">Cadastro de Transportadoras</span>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h1>Cadastro de Transportadoras</h1>
+                    </div>
+                    <div class="card-body">
+                        <form id="formTransportadora">
+                            <div class="form-group">
+                                <label for="cnpj">CNPJ</label>
+                                <input type="text" name="cnpj" id="cnpj" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="nome">Nome</label>
+                                <input type="text" name="nome" id="nome" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contato">Contato</label>
+                                <input type="text" name="contato" id="contato" required>
+                            </div>
+                            
+                            <div class="form-group form-inline">
+                                <button type="submit" class="btn">Cadastrar</button>
+                                <button type="button" class="btn btn-secondary">Salvar</button>
+                                <a href="dashboard_admin.html" class="btn">Voltar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
 
-        <button type="submit">Cadastrar</button>
-        <button type="button">Salvar</button>
-    </form>
-
-    <div>
-        <a href="dashbord_admin.html"><button type="button">Voltar</button></a>
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Ourofértil. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
     </div>
 
+    <script>
+        // Script para toggle do menu mobile
+        document.querySelector('.navbar-toggle').addEventListener('click', function() {
+            document.querySelector('.navbar-menu').classList.toggle('active');
+        });
+    </script>
     <script type="module" src="../js/cadastro_transportadoras.js"></script>
-    
 </body>
 </html>

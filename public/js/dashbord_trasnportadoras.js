@@ -3,6 +3,8 @@ import { db, collection, getDocs, doc, deleteDoc } from '../js/firebase-config.j
 
 document.addEventListener("DOMContentLoaded", async () => {
     const resultSpan = document.getElementById('result');
+    const searchInput = document.getElementById('search');
+    const searchButton = document.querySelector('.search-container .btn');
 
     if (!resultSpan) {
         console.error("Erro: Elemento 'result' não encontrado.");
@@ -10,54 +12,92 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     // Função para carregar e exibir as transportadoras
-    async function carregarTransportadoras() {
+    async function carregarTransportadoras(filtro = '') {
         try {
             const transportadorasRef = collection(db, 'transportadoras');
             const querySnapshot = await getDocs(transportadorasRef);
 
             if (querySnapshot.empty) {
-                resultSpan.innerHTML = "<p>Nenhuma transportadora cadastrada.</p>";
+                // Estado vazio - nenhuma transportadora encontrada
+                resultSpan.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🚚</div>
+                        <h3>Nenhuma transportadora encontrada</h3>
+                        <p>Cadastre uma nova transportadora para começar.</p>
+                        <a href="cadastro_transportadoras.html" class="btn">Cadastrar Transportadora</a>
+                    </div>
+                `;
                 return;
             }
 
-            // Criar a tabela dinâmica
-            let tabelaHTML = `
-                <table border="1" cellpadding="10" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>CNPJ</th>
-                            <th>Contato</th>
-                            
-                            <th>Status</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
+            let transportadorasHTML = '';
+            let transportadorasFiltradas = 0;
 
             querySnapshot.forEach((doc) => {
                 const transportadora = doc.data();
-                tabelaHTML += `
-                    <tr>
-                        <td>${transportadora.nome}</td>
-                        <td>${transportadora.cnpj}</td>
-                        <td>${transportadora.contato}</td>
-                        
-                        <td>${transportadora.status}</td>
-                        <td>
-                            <button onclick="editarTransportadora('${doc.id}')">Editar</button>
-                            <button onclick="deletarTransportadora('${doc.id}')">Deletar</button>
-                        </td>
-                    </tr>
+                const id = doc.id;
+                
+                // Aplicar filtro se existir
+                if (filtro && !transportadora.nome.toLowerCase().includes(filtro.toLowerCase()) && 
+                    !transportadora.cnpj.includes(filtro)) {
+                    return;
+                }
+                
+                transportadorasFiltradas++;
+                
+                // Gerar card para cada transportadora
+                transportadorasHTML += `
+                    <div class="transportadora-card card">
+                        <div class="transportadora-info">
+                            <div class="transportadora-details">
+                                <h3>${transportadora.nome}</h3>
+                                <p><strong>CNPJ:</strong> ${transportadora.cnpj}</p>
+                                <p><strong>Contato:</strong> ${transportadora.contato}</p>
+                                ${transportadora.status ? `<p><strong>Status:</strong> <span class="badge">${transportadora.status}</span></p>` : ''}
+                            </div>
+                            <div class="transportadora-stats">
+                                <div>
+                                    <span class="stats-label">Cargas Ativas:</span>
+                                    <span class="stats-value">${transportadora.cargasAtivas || 0}</span>
+                                </div>
+                                <div>
+                                    <span class="stats-label">Entregas Realizadas:</span>
+                                    <span class="stats-value">${transportadora.entregasRealizadas || 0}</span>
+                                </div>
+                                ${transportadora.avaliacao ? `
+                                <div>
+                                    <span class="stats-label">Avaliação:</span>
+                                    <span class="stats-value">${transportadora.avaliacao}/5</span>
+                                </div>` : ''}
+                            </div>
+                        </div>
+                        <div class="transportadora-actions">
+                            <button class="btn" onclick="editarTransportadora('${id}')">Editar</button>
+                            <button class="btn btn-secondary" onclick="deletarTransportadora('${id}')">Excluir</button>
+                        </div>
+                    </div>
                 `;
             });
 
-            tabelaHTML += `</tbody></table>`;
-            resultSpan.innerHTML = tabelaHTML;
+            if (transportadorasFiltradas === 0 && filtro) {
+                resultSpan.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <h3>Nenhuma transportadora encontrada</h3>
+                        <p>Não encontramos transportadoras com o termo "${filtro}".</p>
+                        <button class="btn" onclick="limparFiltro()">Limpar Filtro</button>
+                    </div>
+                `;
+            } else {
+                resultSpan.innerHTML = transportadorasHTML;
+            }
         } catch (error) {
             console.error("Erro ao carregar transportadoras:", error);
-            resultSpan.innerHTML = "<p>Erro ao carregar transportadoras. Verifique o console.</p>";
+            resultSpan.innerHTML = `
+                <div class="alert alert-error">
+                    <p>Erro ao carregar transportadoras. Por favor, tente novamente.</p>
+                </div>
+            `;
         }
     }
 
@@ -72,14 +112,59 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (confirm("Tem certeza que deseja deletar esta transportadora?")) {
             try {
                 await deleteDoc(doc(db, 'transportadoras', id));
-                alert("Transportadora deletada com sucesso!");
-                carregarTransportadoras(); // Recarrega a tabela após deletar
+                
+                // Mostrar mensagem de sucesso
+                const alertElement = document.createElement('div');
+                alertElement.className = 'alert alert-success';
+                alertElement.innerHTML = '<p>Transportadora deletada com sucesso!</p>';
+                
+                // Inserir alerta antes do resultado
+                resultSpan.parentNode.insertBefore(alertElement, resultSpan);
+                
+                // Remover alerta após 3 segundos
+                setTimeout(() => {
+                    alertElement.remove();
+                }, 3000);
+                
+                // Recarregar a lista
+                carregarTransportadoras(searchInput.value);
             } catch (error) {
                 console.error("Erro ao deletar transportadora:", error);
-                alert("Erro ao deletar transportadora. Verifique o console.");
+                
+                const alertElement = document.createElement('div');
+                alertElement.className = 'alert alert-error';
+                alertElement.innerHTML = '<p>Erro ao deletar transportadora. Por favor, tente novamente.</p>';
+                
+                resultSpan.parentNode.insertBefore(alertElement, resultSpan);
+                
+                setTimeout(() => {
+                    alertElement.remove();
+                }, 3000);
             }
         }
     };
+    
+    // Função para limpar filtro
+    window.limparFiltro = () => {
+        searchInput.value = '';
+        carregarTransportadoras();
+    };
+    
+    // Adicionar evento de busca
+    if (searchButton) {
+        searchButton.addEventListener('click', () => {
+            carregarTransportadoras(searchInput.value);
+        });
+    }
+    
+    // Adicionar evento de busca ao pressionar Enter
+    if (searchInput) {
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                carregarTransportadoras(searchInput.value);
+            }
+        });
+    }
 
     // Carregar as transportadoras ao abrir a página
     await carregarTransportadoras();

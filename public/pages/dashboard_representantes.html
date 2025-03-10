@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Representantes - Ourofértil</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        /* Estilos específicos para o dashboard de representantes */
+        .search-container {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .search-container label {
+            margin-bottom: 0;
+            white-space: nowrap;
+        }
+        
+        .search-container input {
+            flex: 1;
+        }
+        
+        .representante-card {
+            margin-bottom: var(--spacing-md);
+            transition: transform 0.2s;
+        }
+        
+        .representante-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .representante-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        
+        .representante-details {
+            flex: 2;
+            min-width: 250px;
+        }
+        
+        .representante-stats {
+            flex: 1;
+            min-width: 150px;
+            text-align: right;
+        }
+        
+        .representante-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
+        
+        .stats-label {
+            font-size: var(--font-size-sm);
+            color: #666;
+        }
+        
+        .stats-value {
+            font-weight: bold;
+            color: var(--verde-principal);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: #666;
+        }
+        
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+            color: #ddd;
+        }
+        
+        .empty-state-icon svg {
+            width: 64px;
+            height: 64px;
+            fill: #ddd;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .error-state {
+            text-align: center;
+            padding: var(--spacing-xl);
+            color: var(--error-color);
+        }
+        
+        .error-state-icon {
+            font-size: 3rem;
+            margin-bottom: var(--spacing-md);
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="navbar">
+            <div class="container navbar-container">
+                <div class="logo-container">
+                    <img src="../../assets/logo.png" alt="">
+                </div>
+                <button class="navbar-toggle">☰</button>
+                <nav class="navbar-menu">
+                    <a href="dashboard_admin.html">Home</a>
+                    <a href="cadastro_representantes.html">Cadastrar Representantes</a>
+                    <a href="dashbord_cargas.html">Cargas</a>
+                    <a href="dashbord_transportadoras.html">Transportadoras</a>
+                </nav>
+            </div>
+        </header>
+
+        <main class="content-area">
+            <div class="container">
+                <div class="breadcrumb">
+                    <span class="breadcrumb-item"><a href="dashbord_admin.html">Dashboard</a></span>
+                    <span class="breadcrumb-item">Representantes</span>
+                </div>
+                
+                <div class="row">
+                    <div class="col-full">
+                        <h1>Dashboard de Representantes</h1>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="search-container">
+                                    <label for="search">Procurar Representante:</label>
+                                    <input type="text" id="search" placeholder="Digite o nome do representante">
+                                    <button id="searchButton" class="btn">Buscar</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>Representantes Cadastrados</h2>
+                                <a href="cadastro_representantes.html" class="btn">Novo Representante</a>
+                            </div>
+                            <div class="card-body">
+                                <div id="result">
+                                    <!-- As informações aparecerão aqui -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-copyright">
+                    <p>&copy; 2025 Ourofértil. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Script para toggle do menu mobile
+        document.querySelector('.navbar-toggle').addEventListener('click', function() {
+            document.querySelector('.navbar-menu').classList.toggle('active');
+        });
+    </script>
+    <script type="module" src="../js/dashboard_representantes.js"></script>
+</body>
+</html>
