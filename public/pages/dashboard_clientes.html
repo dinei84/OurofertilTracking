@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard Clientes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f6f7f9;
+      margin: 20px;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 1080px;
+      margin: 0 auto;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #007BFF;
+      border: none;
+      color: #fff;
+      padding: 10px 15px;
+      margin: 0 5px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    th {
+      background-color: #ddd;
+    }
+    .client-row:hover {
+      background-color: #f3f3f3;
+    }
+    .delete-btn {
+      background-color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Lista de Clientes</h1>
+    </header>
+
+    <div class="buttons">
+      <button onclick="location.href='cadastrar_clientes.html'">Cadastrar Novo Cliente</button>
+    </div>
+
+    <table id="clientesTable">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>CNPJ/CPF</th>
+          <th>Telefone</th>
+          <th>E-mail</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- DOM dinâmico -->
+      </tbody>
+    </table>
+  </div>
+
+  <script type="module">
+    import { db, collection, getDocs, deleteDoc, doc } from "./firebase-config.js";
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      await carregarClientes();
+    });
+
+    async function carregarClientes() {
+      try {
+        const clientesSnap = await getDocs(collection(db, "clientes"));
+        const tbody = document.querySelector("#clientesTable tbody");
+        tbody.innerHTML = "";
+
+        clientesSnap.forEach((clientDoc) => {
+          const data = clientDoc.data();
+          const tr = document.createElement("tr");
+          tr.classList.add("client-row");
+          tr.innerHTML = `
+            <td>${data.nome || ""}</td>
+            <td>${data.cnpjcpf || ""}</td>
+            <td>${data.telefone || ""}</td>
+            <td>${data.email || ""}</td>
+            <td>
+              <button class="delete-btn" onclick="removerCliente('${clientDoc.id}')">Excluir</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (error) {
+        console.error("Erro ao carregar clientes:", error);
+      }
+    }
+
+    window.removerCliente = async (id) => {
+      if (!confirm("Tem certeza que deseja excluir este cliente?")) return;
+      try {
+        await deleteDoc(doc(db, "clientes", id));
+        alert("Cliente removido com sucesso!");
+        location.reload();
+      } catch (error) {
+        console.error("Erro ao remover cliente:", error);
+        alert("Erro ao remover cliente. Verifique console.");
+      }
+    };
+  </script>
+</body>
+</html>

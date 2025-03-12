@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard de Ordens - Ourofértil</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f6f7f9;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 1080px;
+      margin: 0 auto;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+    }
+    h1 {
+      margin: 0;
+    }
+    .buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #007BFF;
+      border: none;
+      color: #fff;
+      padding: 10px 15px;
+      margin: 0 5px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px 10px;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+    th {
+      background-color: #ddd;
+    }
+    .order-row:hover {
+      background-color: #f3f3f3;
+    }
+    .delete-btn {
+      background-color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Lista de Ordens de Retirada</h1>
+    </header>
+
+    <div class="buttons">
+      <button onclick="window.location.href='adicionar_carga.html'">Cadastrar Nova Ordem</button>
+    </div>
+
+    <table id="ordensTable">
+      <thead>
+        <tr>
+          <th>Data Emissão</th>
+          <th>Cód. Cliente</th>
+          <th>Cliente</th>
+          <th>Produto</th>
+          <th>Quantidade (ton)</th>
+          <th>Valor Total (R$)</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Linhas geradas dinamicamente via JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <script type="module">
+    import { db, collection, getDocs, deleteDoc, doc } from "./firebase-config.js";
+
+    window.addEventListener("DOMContentLoaded", async () => {
+      await carregarOrdens();
+    });
+
+    async function carregarOrdens() {
+      const ordensColecao = collection(db, "ordens");
+      const snapshot = await getDocs(ordensColecao);
+      const tabelaBody = document.querySelector("#ordensTable tbody");
+      tabelaBody.innerHTML = "";
+
+      snapshot.forEach((item) => {
+        const dados = item.data();
+        const row = document.createElement("tr");
+        row.classList.add("order-row");
+
+        row.innerHTML = `
+          <td>${dados.dataEmissao || ""}</td>
+          <td>${dados.codigoCliente || ""}</td>
+          <td>${dados.nomeRazaoSocial || ""}</td>
+          <td>${dados.descricaoProduto || ""}</td>
+          <td>${dados.quantidade || ""}</td>
+          <td>${dados.valorTotal || ""}</td>
+          <td>
+            <button class="delete-btn" onclick="removerOrdem('${item.id}')">Excluir</button>
+          </td>
+        `;
+        tabelaBody.appendChild(row);
+      });
+    }
+
+    window.removerOrdem = async (id) => {
+      if (!confirm("Tem certeza de que deseja excluir esta ordem?")) return;
+      try {
+        await deleteDoc(doc(db, "ordens", id));
+        alert("Ordem removida com sucesso!");
+        location.reload();
+      } catch (error) {
+        console.error("Erro ao remover documento:", error);
+        alert("Erro ao remover ordem. Verifique o console.");
+      }
+    };
+  </script>
+</body>
+</html>

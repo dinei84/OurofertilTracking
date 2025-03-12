@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastrar Clientes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f6f7f9;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 920px;
+      margin: 0 auto;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #ccc;
+      padding-bottom: 10px;
+    }
+    .label {
+      font-weight: bold;
+      width: 150px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+    }
+    td {
+      padding: 8px;
+      vertical-align: top;
+    }
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 6px;
+      margin: 2px 0;
+      box-sizing: border-box;
+    }
+    .buttons {
+      text-align: center;
+      margin-top: 20px;
+    }
+    button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 1rem;
+      border: none;
+      border-radius: 4px;
+    }
+    #save-btn {
+      background-color: #007BFF;
+      color: #fff;
+    }
+    #cancel-btn {
+      background-color: #dc3545;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Cadastrar Novo Cliente</h1>
+    </header>
+    <section>
+      <table>
+        <tr>
+          <td class="label">Nome/Razão Social</td>
+          <td><input type="text" id="nome" /></td>
+        </tr>
+        <tr>
+          <td class="label">CNPJ/CPF</td>
+          <td><input type="text" id="cnpjcpf" /></td>
+        </tr>
+        <tr>
+          <td class="label">Inscrição Estadual</td>
+          <td><input type="text" id="inscricaoEstadual" /></td>
+        </tr>
+        <tr>
+          <td class="label">E-mail (NFE/XML)</td>
+          <td><input type="text" id="email" /></td>
+        </tr>
+        <tr>
+          <td class="label">Telefone</td>
+          <td><input type="text" id="telefone" /></td>
+        </tr>
+        <tr>
+          <td class="label">Endereço</td>
+          <td><input type="text" id="endereco" /></td>
+        </tr>
+        <tr>
+          <td class="label">Município</td>
+          <td><input type="text" id="municipio" /></td>
+        </tr>
+        <tr>
+          <td class="label">UF</td>
+          <td><input type="text" id="uf" /></td>
+        </tr>
+        <tr>
+          <td class="label">CEP</td>
+          <td><input type="text" id="cep" /></td>
+        </tr>
+        <tr>
+          <td class="label">Endereço de Cobrança</td>
+          <td><input type="text" id="enderecoCobranca" /></td>
+        </tr>
+        <tr>
+          <td class="label">Município Cobrança</td>
+          <td><input type="text" id="municipioCobranca" /></td>
+        </tr>
+        <tr>
+          <td class="label">UF Cobrança</td>
+          <td><input type="text" id="ufCobranca" /></td>
+        </tr>
+        <tr>
+          <td class="label">CEP Cobrança</td>
+          <td><input type="text" id="cepCobranca" /></td>
+        </tr>
+      </table>
+    </section>
+    <div class="buttons">
+        <button id="save-btn">Salvar</button>
+      <button id="cancel-btn" onclick="window.location.href='dashboard_clientes.html'">Cancelar</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { db, collection, addDoc } from "../js/firebase-config.js";
+
+async function salvarCliente() {
+  try {
+    // Captura dos valores dos campos
+    const nome = document.getElementById('nome').value.trim();
+    const cnpjcpf = document.getElementById('cnpjcpf').value.trim();
+    const inscricaoEstadual = document.getElementById('inscricaoEstadual').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const telefone = document.getElementById('telefone').value.trim();
+    const endereco = document.getElementById('endereco').value.trim();
+    const municipio = document.getElementById('municipio').value.trim();
+    const uf = document.getElementById('uf').value.trim();
+    const cep = document.getElementById('cep').value.trim();
+    const enderecoCobranca = document.getElementById('enderecoCobranca').value.trim();
+    const municipioCobranca = document.getElementById('municipioCobranca').value.trim();
+    const ufCobranca = document.getElementById('ufCobranca').value.trim();
+    const cepCobranca = document.getElementById('cepCobranca').value.trim();
+
+    console.log("Valores capturados:", {
+      nome,
+      cnpjcpf,
+      inscricaoEstadual,
+      email,
+      telefone,
+      endereco,
+      municipio,
+      uf,
+      cep,
+      enderecoCobranca,
+      municipioCobranca,
+      ufCobranca,
+      cepCobranca
+    });
+
+    // Montar objeto para salvar
+    const clienteData = {
+      nome,
+      cnpjcpf,
+      inscricaoEstadual,
+      email,
+      telefone,
+      endereco,
+      municipio,
+      uf,
+      cep,
+      enderecoCobranca,
+      municipioCobranca,
+      ufCobranca,
+      cepCobranca,
+      createdAt: new Date()
+    };
+
+    console.log("Objeto clienteData:", clienteData);
+
+    // Adicionar documento ao Firestore
+    const docRef = await addDoc(collection(db, "clientes"), clienteData);
+    console.log("Cliente cadastrado com ID:", docRef.id);
+
+    alert("Cliente cadastrado com sucesso!");
+    window.location.href = "dashboard_clientes.html";
+  } catch (error) {
+    console.error("Erro ao salvar cliente:", error);
+    alert("Não foi possível salvar o cliente. Verifique o console para mais detalhes.");
+  }
+}
+
+// Adicionar event listener ao botão
+document.getElementById('save-btn').addEventListener('click', salvarCliente);
+  </script>
+</body>
+</html>
