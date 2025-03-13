@@ -16,12 +16,12 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
         if (userDoc.exists()) {
             const userData = userDoc.data();
             
-            // Verifica se é secundário
-            if (userData.role === "secondary") {
-                window.location.href = "../pages/dashboard_secundario.html";
+            // Verifica se é admin
+            if (userData.role === "admin") {
+                window.location.href = "pages/dashboard_admin.html";
             } else {
-                alert("Acesso restrito a usuários secundários!");
-                await auth.signOut();
+                alert("Acesso restrito a administradores!");
+                await auth.signOut(); // Força logout
             }
         } else {
             alert("Usuário não encontrado!");

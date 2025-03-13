@@ -2,416 +2,259 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <title>Adicionar Carga - Ourofértil</title>
+  <title>Adicionar Carga</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      padding: 0;
-      background-color: #f6f7f9;
-    }
-    .container {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      max-width: 920px;
-      margin: 0 auto;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    h1, h2, h3 {
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      text-align: center;
-      margin-bottom: 20px;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 10px;
-    }
-    .subheader {
-      font-size: 0.9rem;
-      color: #666;
-    }
-    .section-title {
-      background-color: #e6e6e6;
-      padding: 8px;
-      margin-top: 20px;
-      margin-bottom: 10px;
-      font-weight: bold;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 15px;
-    }
-    td {
-      padding: 5px;
-      vertical-align: top;
-    }
-    .label {
-      font-weight: bold;
-      width: 180px;
-    }
-    input[type="text"],
-    input[type="number"],
-    input[type="date"],
-    select {
-      width: 100%;
-      padding: 5px;
-      margin: 2px 0;
-      box-sizing: border-box;
-    }
-    .buttons {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-    }
-    button {
-      margin: 0 10px;
-      padding: 10px 20px;
-      cursor: pointer;
-      font-size: 1rem;
-      border: none;
-      border-radius: 4px;
-    }
-    button#save-btn {
-      background-color: #007BFF;
-      color: #fff;
-    }
-    button#cancel-btn {
-      background-color: #dc3545;
-      color: #fff;
-    }
-    .footer-note {
-      margin-top: 20px;
-      font-size: 0.8rem;
-      color: #999;
-    }
+    /* Estilize de acordo com sua preferência */
+    .container { width: 90%; margin: 0 auto; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    .form-group { padding: 8px 0; }
   </style>
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>OUROFÉRTIL NORDESTE LTDA</h1>
-      <div class="subheader">
-        PEDIDO DE VENDA / ORDEM DE RETIRADA  
-      </div>
-    </header>
-
-    <section>
-      <div class="section-title">Informações do Pedido</div>
-      <table>
-        <tr>
-          <td class="label">Data de Emissão</td>
-          <td><input type="date" id="dataEmissao" /></td>
-          <td class="label">Código do Cliente</td>
-          <td><input type="text" id="codigoCliente" /></td>
-        </tr>
-        <tr>
-          <td class="label">Cliente</td>
-          <td>
-            <!-- Select para escolha do cliente -->
-            <select id="selectCliente">
-              <option value="">Selecione o cliente</option>
-              <!-- Options criadas dinamicamente via JS -->
-            </select>
-          </td>
-          <td class="label">Modalidade de Frete</td>
-          <td>
-            <select id="modalidadeFrete">
-              <option value="CIF">CIF</option>
-              <option value="FOB">FOB</option>
-            </select>
-          </td>
-        </tr>
-      </table>
-    </section>
-
-    <section>
-      <div class="section-title">Informações do Cliente</div>
-      <table>
-        <tr>
-          <td class="label">Nome/Razão Social</td>
-          <td><input type="text" id="nomeRazaoSocial" /></td>
-          <td class="label">CPF/CNPJ</td>
-          <td><input type="text" id="cpfCnpj" /></td>
-        </tr>
-        <tr>
-          <td class="label">Telefone</td>
-          <td><input type="text" id="telefoneCliente" /></td>
-          <td class="label">Inscrição Estadual</td>
-          <td><input type="text" id="inscricaoEstadual" /></td>
-        </tr>
-        <tr>
-          <td class="label">E-mail (NFE/XML)</td>
-          <td><input type="text" id="emailCliente" /></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td class="label">Endereço de Entrega</td>
-          <td><input type="text" id="enderecoEntrega" /></td>
-          <td class="label">Município (Entrega)</td>
-          <td><input type="text" id="municipioEntrega" /></td>
-        </tr>
-        <tr>
-          <td class="label">UF (Entrega)</td>
-          <td><input type="text" id="ufEntrega" /></td>
-          <td class="label">CEP (Entrega)</td>
-          <td><input type="text" id="cepEntrega" /></td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td class="label">Endereço de Cobrança</td>
-          <td><input type="text" id="enderecoCobranca" /></td>
-          <td class="label">Município (Cobrança)</td>
-          <td><input type="text" id="municipioCobranca" /></td>
-        </tr>
-        <tr>
-          <td class="label">UF (Cobrança)</td>
-          <td><input type="text" id="ufCobranca" /></td>
-          <td class="label">CEP (Cobrança)</td>
-          <td><input type="text" id="cepCobranca" /></td>
-        </tr>
-      </table>
-    </section>
-
-    <section>
-      <div class="section-title">Representante</div>
-      <table>
-        <tr>
-          <td class="label">Representante</td>
-          <td>
-            <select id="selectRepresentante">
-              <option value="">Selecione o representante</option>
-              <!-- Options criadas dinamicamente via JS -->
-            </select>
-          </td>
-          <td class="label">Telefone Rep.</td>
-          <td><input type="text" id="telefoneRepresentante" /></td>
-        </tr>
-      </table>
-    </section>
-
-    <section>
-      <div class="section-title">Discriminação da Mercadoria</div>
-      <table>
-        <tr>
-          <td class="label">Descrição do Produto</td>
-          <td><input type="text" id="descricaoProduto" /></td>
-          <td class="label">Quantidade (ton)</td>
-          <td><input type="number" id="quantidade" step="0.001" /></td>
-        </tr>
-        <tr>
-          <td class="label">Preço Unitário (R$)</td>
-          <td><input type="number" id="precoUnitario" step="0.01" /></td>
-          <td class="label">Frete por Tonelada</td>
-          <td><input type="number" id="freteTon" step="0.01" /></td>
-        </tr>
-        <tr>
-          <td class="label">Valor Total do Pedido</td>
-          <td><input type="number" id="valorTotal" step="0.01" /></td>
-          <td class="label">Vencimento (Boleto)</td>
-          <td><input type="date" id="vencimento" /></td>
-        </tr>
-      </table>
-    </section>
-
-    <div class="buttons">
-      <button id="save-btn" onclick="salvarOrdem()">Salvar Ordem</button>
-      <button id="cancel-btn" onclick="window.location.href='deshboard_ordens.html'">Cancelar</button>
+    <h1>Cadastro de Cargas (Multiplos Itens)</h1>
+    
+    <div class="form-group">
+      <label for="clienteSelect">Cliente:</label>
+      <select id="clienteSelect">
+        <option value="">Selecione um cliente</option>
+        <!-- Preenchido dinamicamente -->
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="representanteSelect">Representante:</label>
+      <select id="representanteSelect">
+        <option value="">Selecione um representante</option>
+        <!-- Preenchido dinamicamente -->
+      </select>
     </div>
 
-    <p class="footer-note">Uma vez entregue ou retirada a mercadoria, o cliente declara-se devedor do valor correspondente.</p>
+    <hr/>
+
+    <h2>Itens do Pedido</h2>
+    <table id="itensTable">
+      <thead>
+        <tr>
+          <th>Descrição do Produto</th>
+          <th>Quantidade (tons)</th>
+          <th>Preço Unitário (R$)</th>
+          <th>Preço Total (R$)</th>
+          <th>Frete por Ton (R$)</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Linhas adicionadas dinamicamente -->
+      </tbody>
+    </table>
+    
+    <button id="btnAdicionarItem">Adicionar Item</button>
+    
+    <div class="form-group" style="margin-top: 20px;">
+      <label for="desconto">Desconto (R$):</label>
+      <input type="number" step="0.01" id="desconto" value="0" />
+    </div>
+    
+    <div class="form-group">
+      <label for="quantidadeTotal">Quantidade Total (tons):</label>
+      <input type="number" step="0.001" id="quantidadeTotal" value="0" readonly />
+    </div>
+    
+    <div class="form-group">
+      <label for="valorTotalPedido">Valor Total do Pedido (R$):</label>
+      <input type="number" step="0.01" id="valorTotalPedido" value="0" readonly />
+    </div>
+    
+    <button id="btnSalvar">Salvar Carga</button>
   </div>
 
   <script type="module">
-    import { db, collection, getDocs, addDoc } from "./firebase-config.js";
+    import { db, collection, doc, getDocs, addDoc } from '../js/firebase-config.js';
 
-    let clientesCache = [];
-    let representantesCache = [];
+    let itensArray = []; 
+    const tabela = document.getElementById('itensTable').querySelector('tbody');
+    const btnAdicionarItem = document.getElementById('btnAdicionarItem');
+    const btnSalvar = document.getElementById('btnSalvar');
+    const descontoEl = document.getElementById('desconto');
+    const quantidadeTotalEl = document.getElementById('quantidadeTotal');
+    const valorTotalPedidoEl = document.getElementById('valorTotalPedido');
+    const clienteSelect = document.getElementById('clienteSelect');
+    const representanteSelect = document.getElementById('representanteSelect');
 
-    // Ao carregar página, buscar todos clientes e representantes
-    window.addEventListener("DOMContentLoaded", async () => {
+    // Carrega clientes e representantes ao iniciar
+    window.addEventListener('DOMContentLoaded', async () => {
       await carregarClientes();
       await carregarRepresentantes();
     });
 
     async function carregarClientes() {
-      try {
-        const snapshot = await getDocs(collection(db, "clientes"));
-        const selectCliente = document.getElementById("selectCliente");
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          clientesCache.push({ id: doc.id, ...data });
-        });
-        // Preencher <select> com nome do cliente
-        clientesCache.forEach(cliente => {
-          const option = document.createElement("option");
-          option.value = cliente.id;
-          option.textContent = cliente.nome;
-          selectCliente.appendChild(option);
-        });
-
-        // Adicionar listener para mudança de cliente selecionado
-        selectCliente.addEventListener("change", (e) => {
-          const selectedId = e.target.value;
-          if (!selectedId) return limparCamposCliente();
-
-          const clienteSelecionado = clientesCache.find(cli => cli.id === selectedId);
-          if (clienteSelecionado) {
-            preencherCamposCliente(clienteSelecionado);
-          }
-        });
-      } catch (error) {
-        console.error("Erro ao carregar clientes:", error);
-      }
-    }
-
-    function preencherCamposCliente(cliente) {
-      document.getElementById("nomeRazaoSocial").value = cliente.nome || "";
-      document.getElementById("cpfCnpj").value = cliente.cnpjcpf || "";
-      document.getElementById("telefoneCliente").value = cliente.telefone || "";
-      document.getElementById("inscricaoEstadual").value = cliente.inscricaoEstadual || "";
-      document.getElementById("emailCliente").value = cliente.email || "";
-
-      document.getElementById("enderecoEntrega").value = cliente.endereco || "";
-      document.getElementById("municipioEntrega").value = cliente.municipio || "";
-      document.getElementById("ufEntrega").value = cliente.uf || "";
-      document.getElementById("cepEntrega").value = cliente.cep || "";
-
-      document.getElementById("enderecoCobranca").value = cliente.enderecoCobranca || "";
-      document.getElementById("municipioCobranca").value = cliente.municipioCobranca || "";
-      document.getElementById("ufCobranca").value = cliente.ufCobranca || "";
-      document.getElementById("cepCobranca").value = cliente.cepCobranca || "";
-    }
-
-    function limparCamposCliente() {
-      document.getElementById("nomeRazaoSocial").value = "";
-      document.getElementById("cpfCnpj").value = "";
-      document.getElementById("telefoneCliente").value = "";
-      document.getElementById("inscricaoEstadual").value = "";
-      document.getElementById("emailCliente").value = "";
-
-      document.getElementById("enderecoEntrega").value = "";
-      document.getElementById("municipioEntrega").value = "";
-      document.getElementById("ufEntrega").value = "";
-      document.getElementById("cepEntrega").value = "";
-
-      document.getElementById("enderecoCobranca").value = "";
-      document.getElementById("municipioCobranca").value = "";
-      document.getElementById("ufCobranca").value = "";
-      document.getElementById("cepCobranca").value = "";
+      const snapshot = await getDocs(collection(db, "clientes"));
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        const option = document.createElement("option");
+        option.value = docSnap.id;
+        option.text = data.nome || "Sem nome";
+        clienteSelect.appendChild(option);
+      });
     }
 
     async function carregarRepresentantes() {
-      try {
-        const snapshot = await getDocs(collection(db, "representantes"));
-        const selectRepresentante = document.getElementById("selectRepresentante");
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          representantesCache.push({ id: doc.id, ...data });
-        });
-
-        representantesCache.forEach(rep => {
-          const option = document.createElement("option");
-          option.value = rep.id;
-          option.textContent = rep.nome;
-          selectRepresentante.appendChild(option);
-        });
-
-        // Ao mudar o representante selecionado, preencher telefone
-        selectRepresentante.addEventListener("change", (e) => {
-          const selectedRepId = e.target.value;
-          if (!selectedRepId) {
-            document.getElementById("telefoneRepresentante").value = "";
-            return;
-          }
-          const repSelecionado = representantesCache.find(r => r.id === selectedRepId);
-          if (repSelecionado && repSelecionado.contato) {
-            document.getElementById("telefoneRepresentante").value = repSelecionado.contato;
-          } else {
-            document.getElementById("telefoneRepresentante").value = "";
-          }
-        });
-      } catch (error) {
-        console.error("Erro ao carregar representantes:", error);
-      }
+      const snapshot = await getDocs(collection(db, "representantes"));
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        const option = document.createElement("option");
+        option.value = docSnap.id;
+        option.text = data.nome || "Sem nome";
+        representanteSelect.appendChild(option);
+      });
     }
 
-    async function salvarOrdem() {
+    function recalcularTotais() {
+      let totalTons = 0;
+      let totalPedido = 0;
+      itensArray.forEach(item => {
+        totalTons += parseFloat(item.quantidade || 0);
+        totalPedido += parseFloat(item.precoTotal || 0);
+      });
+      // Aplica desconto
+      let desconto = parseFloat(descontoEl.value || 0);
+      totalPedido = totalPedido - desconto;
+      quantidadeTotalEl.value = totalTons.toFixed(3);
+      valorTotalPedidoEl.value = totalPedido.toFixed(2);
+    }
+
+    // Adiciona uma nova linha na tabela
+    btnAdicionarItem.addEventListener('click', () => {
+      const linhaObj = {
+        descricao: "",
+        quantidade: 0,
+        precoUnitario: 0,
+        precoTotal: 0,
+        fretePorTon: 0
+      };
+      itensArray.push(linhaObj);
+      desenharTabela();
+    });
+
+    function desenharTabela() {
+      tabela.innerHTML = "";
+      itensArray.forEach((item, index) => {
+        const tr = document.createElement('tr');
+
+        const tdDescricao = document.createElement('td');
+        const inputDescricao = document.createElement('input');
+        inputDescricao.type = 'text';
+        inputDescricao.value = item.descricao;
+        inputDescricao.addEventListener('input', (e) => {
+          itensArray[index].descricao = e.target.value;
+        });
+        tdDescricao.appendChild(inputDescricao);
+
+        const tdQuantidade = document.createElement('td');
+        const inputQuantidade = document.createElement('input');
+        inputQuantidade.type = 'number';
+        inputQuantidade.step = '0.001';
+        inputQuantidade.value = item.quantidade;
+        inputQuantidade.addEventListener('input', (e) => {
+          itensArray[index].quantidade = parseFloat(e.target.value || 0);
+          itensArray[index].precoTotal = itensArray[index].quantidade * itensArray[index].precoUnitario;
+          desenharTabela();
+          recalcularTotais();
+        });
+        tdQuantidade.appendChild(inputQuantidade);
+
+        const tdPrecoUnit = document.createElement('td');
+        const inputPrecoUnit = document.createElement('input');
+        inputPrecoUnit.type = 'number';
+        inputPrecoUnit.step = '0.01';
+        inputPrecoUnit.value = item.precoUnitario;
+        inputPrecoUnit.addEventListener('input', (e) => {
+          itensArray[index].precoUnitario = parseFloat(e.target.value || 0);
+          itensArray[index].precoTotal = itensArray[index].quantidade * itensArray[index].precoUnitario;
+          desenharTabela();
+          recalcularTotais();
+        });
+        tdPrecoUnit.appendChild(inputPrecoUnit);
+
+        const tdPrecoTotal = document.createElement('td');
+        tdPrecoTotal.textContent = (item.precoTotal || 0).toFixed(2);
+
+        const tdFrete = document.createElement('td');
+        const inputFrete = document.createElement('input');
+        inputFrete.type = 'number';
+        inputFrete.step = '0.01';
+        inputFrete.value = item.fretePorTon;
+        inputFrete.addEventListener('input', (e) => {
+          itensArray[index].fretePorTon = parseFloat(e.target.value || 0);
+        });
+        tdFrete.appendChild(inputFrete);
+
+        const tdAcao = document.createElement('td');
+        const btnRemover = document.createElement('button');
+        btnRemover.textContent = 'Remover';
+        btnRemover.onclick = () => {
+          itensArray.splice(index, 1);
+          desenharTabela();
+          recalcularTotais();
+        };
+        tdAcao.appendChild(btnRemover);
+
+        tr.appendChild(tdDescricao);
+        tr.appendChild(tdQuantidade);
+        tr.appendChild(tdPrecoUnit);
+        tr.appendChild(tdPrecoTotal);
+        tr.appendChild(tdFrete);
+        tr.appendChild(tdAcao);
+        tabela.appendChild(tr);
+      });
+      recalcularTotais();
+    }
+
+    // Salvar no Firestore
+    btnSalvar.addEventListener('click', async () => {
       try {
-        // Ler valores dos campos
-        const dataEmissao = document.getElementById('dataEmissao').value;
-        const codigoCliente = document.getElementById('codigoCliente').value;
-        const nomeRazaoSocial = document.getElementById('nomeRazaoSocial').value;
-        const cpfCnpj = document.getElementById('cpfCnpj').value;
-        const telefoneCliente = document.getElementById('telefoneCliente').value;
-        const inscricaoEstadual = document.getElementById('inscricaoEstadual').value;
-        const emailCliente = document.getElementById('emailCliente').value;
-        const enderecoEntrega = document.getElementById('enderecoEntrega').value;
-        const municipioEntrega = document.getElementById('municipioEntrega').value;
-        const ufEntrega = document.getElementById('ufEntrega').value;
-        const cepEntrega = document.getElementById('cepEntrega').value;
-        const enderecoCobranca = document.getElementById('enderecoCobranca').value;
-        const municipioCobranca = document.getElementById('municipioCobranca').value;
-        const ufCobranca = document.getElementById('ufCobranca').value;
-        const cepCobranca = document.getElementById('cepCobranca').value;
+        const clienteId = clienteSelect.value;
+        const representanteId = representanteSelect.value;
+        const desconto = parseFloat(descontoEl.value || 0);
+        const quantidadeTotal = parseFloat(quantidadeTotalEl.value || 0);
+        const valorTotalPedido = parseFloat(valorTotalPedidoEl.value || 0);
 
-        const modalidadeFrete = document.getElementById('modalidadeFrete').value;
-        const representante = document.getElementById('selectRepresentante').value;
-        const telefoneRepresentante = document.getElementById('telefoneRepresentante').value;
+        if (!clienteId) {
+          alert("Selecione um cliente antes de salvar.");
+          return;
+        }
+        if (itensArray.length === 0) {
+          alert("Adicione ao menos um item ao pedido.");
+          return;
+        }
 
-        const descricaoProduto = document.getElementById('descricaoProduto').value;
-        const quantidade = document.getElementById('quantidade').value;
-        const precoUnitario = document.getElementById('precoUnitario').value;
-        const freteTon = document.getElementById('freteTon').value;
-        const valorTotal = document.getElementById('valorTotal').value;
-        const vencimento = document.getElementById('vencimento').value;
-
-        // Montar objeto
-        const ordemData = {
-          dataEmissao,
-          codigoCliente,
-          nomeRazaoSocial,
-          cpfCnpj,
-          telefoneCliente,
-          inscricaoEstadual,
-          emailCliente,
-          enderecoEntrega,
-          municipioEntrega,
-          ufEntrega,
-          cepEntrega,
-          enderecoCobranca,
-          municipioCobranca,
-          ufCobranca,
-          cepCobranca,
-          modalidadeFrete,
-          representante,
-          telefoneRepresentante,
-          descricaoProduto,
-          quantidade,
-          precoUnitario,
-          freteTon,
-          valorTotal,
-          vencimento,
+        // Exemplo de objeto para salvar na coleção "cargas"
+        const cargaObj = {
+          clienteId,
+          representanteId,
+          desconto,
+          quantidadeTotal,
+          valorTotalPedido,
+          itens: itensArray.map(item => ({
+            descricao: item.descricao,
+            quantidade: item.quantidade,
+            precoUnitario: item.precoUnitario,
+            precoTotal: item.precoTotal,
+            fretePorTon: item.fretePorTon
+          })),
           createdAt: new Date()
         };
 
-        // Salvar no Firestore (coleção "ordens")
-        await addDoc(collection(db, "ordens"), ordemData);
-        alert("Ordem adicionada com sucesso!");
-
-        // Redirecionar
-        window.location.href = "deshboard_ordens.html";
+        await addDoc(collection(db, 'cargas'), cargaObj);
+        alert("Cargas adicionadas com sucesso!");
+        window.location.reload(); // Recarrega a página pra limpar tudo
       } catch (error) {
-        console.error("Erro ao adicionar ordem:", error);
-        alert("Não foi possível salvar a ordem. Verifique console.");
+        console.error("Erro ao salvar carga:", error);
+        alert("Erro ao salvar carga. Verifique o console.");
       }
-    }
+    });
   </script>
 </body>
 </html>
